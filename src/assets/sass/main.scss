@@ -1,0 +1,43 @@
+@charset "UTF-8";
+@mixin bg($url) {
+  background:url($url) center no-repeat;
+  background-size: 100% 100%;
+}
+
+@mixin wh($width, $height, $hasLineHeight) {
+  width: pxToRem($width);
+  height: pxToRem($height);
+
+  @if $hasLineHeight == true {
+    line-height: pxToRem($height);
+  }
+}
+
+@mixin colorFont($color, $fontSize) {
+  color:$color;
+  font-size: pxToRem($fontSize);
+}
+
+@import "partial/normalize";
+@import "partial/base";
+@import "partial/func";
+@import "mod/main";
+@import "mod/index";
+
+html,body {
+    position: relative;
+    font-family: "微软雅黑", "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+    margin: 0;
+    padding: 0;
+    height:100%;
+    background-color:#f1f1f1;
+}
+.word{
+   white-space: nowrap;
+  -webkit-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+

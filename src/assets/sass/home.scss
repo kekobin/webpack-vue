@@ -1,0 +1,150 @@
+$base-font-size: 23.4375px;
+
+@function pxToRem($px) {
+	@return $px / $base-font-size / 2 * 1rem;
+}
+@mixin bg($url) {
+  background:url($url) center no-repeat;
+  background-size: 100% 100%;
+}
+
+@mixin wh($width, $height, $hasLineHeight) {
+  width: pxToRem($width);
+  height: pxToRem($height);
+
+  @if $hasLineHeight == true {
+    line-height: pxToRem($height);
+  }
+}
+@mixin colorFont($color, $fontSize) {
+  color:$color;
+  font-size: pxToRem($fontSize);
+}
+.section-1{
+	margin-top:pxToRem(-100px);
+	.title{
+		@include bg('../assets/img/title1.png');
+	}
+}
+.section-3{
+	margin-top:pxToRem(50px);
+	.title{
+		@include bg('../assets/img/title7.png');
+	}
+}
+.section-4{
+	margin-top:pxToRem(50px);
+	.title{
+		@include bg('../assets/img/title3.png');
+	}
+}
+.section-5{
+	margin-top:pxToRem(50px);
+	.title{
+		@include bg('../assets/img/title6.png');
+	}
+}
+.section-6{
+	margin-top:pxToRem(50px);
+	.title{
+		@include bg('../assets/img/title4.png');
+	}
+}
+.section-7{
+	margin-top:pxToRem(50px);
+	.title{
+		@include bg('../assets/img/title5.png');
+	}
+}
+.section-8{
+	margin-top:pxToRem(50px);
+	.title{
+		@include bg('../assets/img/title8.png');
+	}
+
+}
+.guess{
+	@include wh(717px, 296px, false);
+	@include bg('../assets/img/guess_bg.png');
+	.vs-content{
+		padding:pxToRem(25px) pxToRem(25px);
+	}
+}
+.guess2{
+	margin-bottom:pxToRem(30px)!important;
+	@include wh(705px, 206px, false);
+	@include bg('../assets/img/guess_bg2.png');
+	.vs-content{
+		padding:pxToRem(20px) pxToRem(20px);
+	}
+}
+.guess, .guess2{
+	
+	margin:0 auto;
+
+	.vs-content{
+		position: relative;
+	}
+	button{
+		margin-top:pxToRem(30px);
+	}
+
+	.avatar{
+		text-align: center;
+		img{
+			@include wh(130px, 130px, false);
+			border-radius: pxToRem(130px);
+		}
+		p{
+			font-weight: bold;
+			margin-top: pxToRem(12px);
+			@include colorFont(#666, 24px);
+		}
+	}
+	.vs-left{
+		.avatar{
+			margin-right:pxToRem(20px);
+		}
+		button{
+			background-color:#ca1e1e;
+		}
+	}
+	.vs-right{
+		.avatar{
+			margin-left:pxToRem(20px);
+		}
+		button{
+			background-color:#32a4d6;
+		}
+	}
+	.bean {
+		text-align: center;
+		p{
+			margin-top:pxToRem(15px);
+			@include colorFont(#999, 22px);
+		}
+	}
+	.vs{
+		text-align: center;
+		margin:pxToRem(12px) pxToRem(18px) 0;
+		img{
+			@include wh(54px, 33px, false);
+		}
+		p{
+			margin-top:pxToRem(-8px);
+			@include colorFont(#999, 22px);
+		}
+	}
+	.more{
+		margin-top:pxToRem(212px);
+		text-align: center;
+		display:block;
+		@include colorFont(#666, 28px);
+		i{
+			display:inline-block;
+			@include wh(29px, 28px, false);
+			@include bg('../assets/img/arrow_r.png');
+		}
+	}
+
+}

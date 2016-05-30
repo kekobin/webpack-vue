@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="format-detection" content="telephone=no" />
+	<title>MSI赛事面板</title>
+	<script>
+    //动态算rem
+  (function(doc, win) {
+      var docEl = doc.documentElement,
+          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+          recalc = function() {
+              // if (docEl.style.fontSize) return;
+              clientWidth = docEl.clientWidth;
+              if (!clientWidth) return;
+              docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+              if (document.body) {
+                  document.body.style.fontSize = docEl.style.fontSize;
+              }
+          };
+      recalc();
+      if (!doc.addEventListener) return;
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded', recalc, false);
+  })(document, window);
+  </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="http://szhuodong.duowan.com/s/rp/ya-huya-mobile.min.js"></script>
+  </body>
+</html>

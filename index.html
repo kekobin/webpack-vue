@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="format-detection" content="telephone=no" />
+  <title>MSI赛事面板</title>
+  <script>
+    //动态算rem
+  (function(doc, win) {
+      var docEl = doc.documentElement,
+          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+          recalc = function() {
+              // if (docEl.style.fontSize) return;
+              clientWidth = docEl.clientWidth;
+              if (!clientWidth) return;
+              docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+              if (document.body) {
+                  document.body.style.fontSize = docEl.style.fontSize;
+              }
+          };
+      recalc();
+      if (!doc.addEventListener) return;
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded', recalc, false);
+  })(document, window);
+  </script>
+  <script type="text/javascript" src="/msiH52016/assets/js/zepto.min.js"></script>
+ </head>
+ <body class="index_page" style="overflow:hidden!important;">
+    <section id="index" class="container clickstat" eid="pageview/hd/zhuye" eid_desc="PV/活动/msi/主页">
+     </section>
+   <script src="http://szhuodong.duowan.com/s/rp/ya-huya-mobile.min.js"></script>
+   <script type="text/javascript">
+       $(function() {
+        var that = this;
+        var yyuid = getCookie('yyuid');
+        
+        var stat = function() {
+            if (typeof YA == 'undefined') {
+                return false;
+            }
+            var obj = obj || {};
+            var source = {
+                pro: "huyawap",
+                pas: YA.cookie.get('username') || '',
+                yyuid: YA.cookie.get('yyuid') || '',
+                pageType: "root",
+                rso: "",
+                rso_desc: "",
+                eid: "",
+                eid_desc: ""
+            }
+
+            var writeCookie = function(name, value, domain, path, expiretime) {
+                var cookieInfo = name + "=" + value + ";domain=" + domain + ";path=" + path;
+                if (expiretime > 0) {
+                    cookieInfo = cookieInfo + ";expires=" + expiretime.toGMTString();
+                }
+
+                document.cookie = cookieInfo;
+            }
+
+            for (var property in obj) {
+                source[property] = obj[property];
+            }
+
+            if (typeof ya == 'undefined') {
+                window.ya = new YA(source.pro, source.pas, {
+                    pageType: source.pageType,
+                    yyuid: source.yyuid
+                });
+
+                ya.reportProductStartUp({
+                    pro: source.pro,
+                    rso: source.rso,
+                    rso_desc: source.rso_desc,
+                    ref: YA.cookie.get('ya_eid'),
+                    furl: encodeURIComponent(document.referrer)
+                });
+
+                ya.startProductHeartbeat({
+                    pro: source.pro,
+                    rso: source.rso,
+                    ref: YA.cookie.get('ya_eid'),
+                    rso_desc: source.rso_desc
+                });
+
+                ya.reportProductEvent({
+                    eid: source.eid,
+                    eid_desc: source.eid_desc,
+                    rso: source.rso,
+                    rso_desc: source.rso_desc,
+                    ref: YA.cookie.get('ya_eid'),
+                    furl: encodeURIComponent(document.referrer)
+                })
+            }
+          }();
+
+        $('#index').click(function(e) {
+           e.preventDefault();
+
+           if(yyuid) {
+             var params = location.search;
+             var jumpUrl = encodeURIComponent('http://hd.huya.com/msiH52016/main.html' + params);
+             var resultUrl = 'https://lgn.huya.com/lgn/jump/authentication.do?ticket=&appid=5060&busiId=&busiUrl=' + jumpUrl + '&yyuid=&reqDomainList=huya.com&action=authenticate';
+
+             var url = 'http://kiwijs.jump.huya.com/?jumpTitle=MSI赛事面板&jumpUrl='+encodeURIComponent(resultUrl);
+
+             /**--统计{ **/
+              var ya_eid = '';
+
+              if ($(this).attr('href')) {
+                  ya_eid = $(this).attr('eid').substring(6);
+                  writeCookie('ya_eid', ya_eid, 'huya.com', '/')
+              }
+
+              ya.reportProductEvent({
+                  eid: $(this).attr('eid'), //产品给的
+                  eid_desc: $(this).attr('eid_desc'), //产品给的
+                  ref: YA.cookie.get('ya_eid')
+              });
+              /**--统计} **/
+
+             location.href = url;
+           } else {
+             location.href = "http://kiwijs.login.huya.com/";
+           }
+        });
+
+        //通知客户端dom加载完成
+         var u = navigator.userAgent;
+         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+         if(!!u.match(/AppleWebKit.*Mobile.*/) || isAndroid) {
+          $(document).ready(function() {
+            setTimeout(function() {
+              location.href = "http://kiwijs.domready.huya.com/";
+            }, 1000);
+          });
+         }
+
+         function getCookie(cookieName) {
+              var cookieString = document.cookie;
+              var cookies = cookieString.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = cookies[i];
+                  var start = cookie.indexOf(cookieName + '=');
+                  if (start == -1 || start > 1) continue;
+                  start += cookieName.length + 1;
+                  return cookie.substring(start);
+              }
+              return null;
+          }
+       });
+     </script>
+ </body>
+</html>
